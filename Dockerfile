@@ -29,5 +29,7 @@ COPY . /app
 
 RUN ["mvn", "package"]
 
+EXPOSE 9080
+
 CMD ["mvn", "liberty:run"]
 
