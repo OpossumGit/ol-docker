@@ -34,17 +34,19 @@ ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
 WORKDIR /app
 COPY . /app
 
+COPY mvn-entrypoint.sh /usr/local/bin/mvn-entrypoint.sh
 COPY settings-docker.xml /usr/share/maven/ref/
 
 EXPOSE 9080
 
-RUN mkdir -p /.m2/repository && \
-  chgrp -R 0 /.m2/repository /app && \
-  chmod -R g=u /.m2/repository /app
+# RUN mkdir -p /.m2/repository && \
+RUN  chgrp -R 0 /app/target && \
+  chmod -R g=u /app/target
 
 
 USER 1001
 
+RUN ["/usr/local/bin/mvn-entrypoint.sh"]
 RUN ["mvn", "package"]
 
 CMD ["mvn", "liberty:run"]
