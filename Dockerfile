@@ -34,6 +34,8 @@ ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
 WORKDIR /app
 COPY . /app
 
+COPY settings-docker.xml /usr/share/maven/ref/
+
 EXPOSE 9080
 
 RUN mkdir -p /.m2/repository && \
