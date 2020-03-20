@@ -39,9 +39,11 @@ RUN ["mvn", "package"]
 
 EXPOSE 9080
 
-USER 1001
+RUN mkdir -p /.m2/repository && \
+  chgrp -R 0 /.m2/repository && \
+  chmod -R g=u /var/log/httpd /var/run/httpd
 
-RUN mkdir -p /.m2/repository
+USER 1001
 
 CMD ["mvn", "liberty:run"]
 
