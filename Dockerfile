@@ -3,6 +3,13 @@ FROM openjdk:11.0.6-slim
 MAINTAINER  Tvrtko Mrkonjić <author@email.com>
 # BASED ON https://github.com/carlossg/docker-maven/tree/master/jdk-8-slim
 
+# Labels consumed by OpenShift
+LABEL io.k8s.description="Gets maven. Takes source code. Packages during build. Runs liberty:run" \
+io.k8s.display-name="OpenLiberty app" \
+io.openshift.expose-services="9080:http" \
+io.openshift.tags="openliberty"
+
+
 ARG MAVEN_VERSION=3.6.3
 ARG USER_HOME_DIR="/root"
 ARG SHA=c35a1803a6e70a126e80b2b3ae33eed961f83ed74d18fcd16909b2d44d7dada3203f1ffe726c17ef8dcca2dcaa9fca676987befeadc9b9f759967a8cb77181c0
@@ -31,6 +38,11 @@ COPY . /app
 RUN ["mvn", "package"]
 
 EXPOSE 9080
+
+RUN chgrp -R 0 /.m2  && \
+chmod -R g=u /.m2
+
+USER 1001
 
 CMD ["mvn", "liberty:run"]
 
