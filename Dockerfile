@@ -37,6 +37,9 @@ EXPOSE 9080
 
 RUN mkdir /app/repository && \
   mvn -s settings-docker.xml package && \
+  mvn -s settings-docker.xml liberty:create && \
+  mvn -s settings-docker.xml liberty:install-feature && \
+  mvn -s settings-docker.xml liberty:create && \
   chgrp -R 0 /app && \
   chmod -R g=u /app
 #RUN ["mvn", "-s", "settings-docker.xml","package"]
