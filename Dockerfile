@@ -37,8 +37,9 @@ EXPOSE 9080
 
 # RUN mkdir -p /.m2/repository && \
 RUN mkdir /app/target  && \
-  chgrp -R 0 /app/target && \
-  chmod -R g=u /app/target
+  mkdir /app/repository && \
+  chgrp -R 0 /app/target /app/repository && \
+  chmod -R g=u /app/target /app/repository
 
 USER 1001
 RUN ["mvn", "-s", "settings-docker.xml","package"]
