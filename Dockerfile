@@ -41,7 +41,7 @@ EXPOSE 9080
 
 USER 1001
 
-RUN mkdir /.m2/repository
+RUN mkdir -p /.m2/repository
 
 CMD ["mvn", "liberty:run"]
 
