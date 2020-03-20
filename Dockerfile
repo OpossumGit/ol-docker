@@ -27,5 +27,7 @@ WORKDIR /app
 
 COPY . /app
 
+RUN ["mvn", "package"]
+
 CMD ["mvn", "liberty:run"]
 
