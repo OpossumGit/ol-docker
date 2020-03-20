@@ -35,8 +35,6 @@ WORKDIR /app
 
 COPY . /app
 
-RUN ["mvn", "package"]
-
 EXPOSE 9080
 
 RUN mkdir -p /.m2/repository && \
@@ -44,6 +42,8 @@ RUN mkdir -p /.m2/repository && \
   chmod -R g=u /.m2/repository /app/target
 
 USER 1001
+
+RUN ["mvn", "package"]
 
 CMD ["mvn", "liberty:run"]
 
