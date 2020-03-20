@@ -30,11 +30,8 @@ RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
 ENV MAVEN_HOME /usr/share/maven
 ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
 
-
 WORKDIR /app
 COPY . /app
-
-COPY settings-docker.xml /usr/share/maven/ref/
 
 EXPOSE 9080
 
@@ -44,9 +41,7 @@ RUN mkdir /app/target  && \
   chmod -R g=u /app/target
 
 USER 1001
-COPY mvn-entrypoint.sh /usr/local/bin/mvn-entrypoint.sh
-RUN ["/usr/local/bin/mvn-entrypoint.sh"]
-RUN ["mvn", "package"]
+RUN ["mvn", "-s", "settings-docker.xml","package"]
 
-CMD ["mvn", "liberty:run"]
+CMD ["mvn", "-s", "settings-docker.xml", "liberty:run"]
 
