@@ -1,6 +1,7 @@
 FROM openjdk:11.0.6-slim
 
 MAINTAINER  Tvrtko Mrkonjić <author@email.com>
+# BASED ON https://github.com/carlossg/docker-maven/tree/master/jdk-8-slim
 
 ARG MAVEN_VERSION=3.6.3
 ARG USER_HOME_DIR="/root"
