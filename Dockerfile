@@ -11,7 +11,6 @@ io.openshift.tags="openliberty"
 
 
 ARG MAVEN_VERSION=3.6.3
-ARG USER_HOME_DIR="/root"
 ARG SHA=c35a1803a6e70a126e80b2b3ae33eed961f83ed74d18fcd16909b2d44d7dada3203f1ffe726c17ef8dcca2dcaa9fca676987befeadc9b9f759967a8cb77181c0
 ARG BASE_URL=https://apache.osuosl.org/maven/maven-3/${MAVEN_VERSION}/binaries
 
@@ -28,7 +27,6 @@ RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
   && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
 
 ENV MAVEN_HOME /usr/share/maven
-ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
 
 WORKDIR /app
 COPY . /app
@@ -42,14 +40,6 @@ RUN mkdir /app/repository && \
   mvn -s settings-docker.xml liberty:create && \
   chgrp -R 0 /app && \
   chmod -R g=u /app
-#RUN ["mvn", "-s", "settings-docker.xml","package"]
-
-# RUN mkdir -p /.m2/repository && \
-# RUN mkdir /app/target  && \
-#  mkdir /app/repository && \
-#  chgrp -R 0 /app && \
-#  chmod -R g=u /app
-
 
 USER 1001
 
