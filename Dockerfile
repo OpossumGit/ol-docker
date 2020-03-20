@@ -41,7 +41,7 @@ EXPOSE 9080
 
 RUN mkdir -p /.m2/repository && \
   chgrp -R 0 /.m2/repository && \
-  chmod -R g=u /var/log/httpd /var/run/httpd
+  chmod -R g=u /.m2/repository
 
 USER 1001
 
