@@ -40,8 +40,8 @@ RUN ["mvn", "package"]
 EXPOSE 9080
 
 RUN mkdir -p /.m2/repository && \
-  chgrp -R 0 /.m2/repository && \
-  chmod -R g=u /.m2/repository
+  chgrp -R 0 /.m2/repository /app/target && \
+  chmod -R g=u /.m2/repository /app/target
 
 USER 1001
 
