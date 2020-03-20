@@ -40,9 +40,9 @@ COPY settings-docker.xml /usr/share/maven/ref/
 EXPOSE 9080
 
 # RUN mkdir -p /.m2/repository && \
-RUN  chgrp -R 0 /app/target && \
+RUN mkdir /app/target  && \
+  chgrp -R 0 /app/target && \
   chmod -R g=u /app/target
-
 
 USER 1001
 
